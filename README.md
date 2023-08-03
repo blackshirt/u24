@@ -39,12 +39,12 @@ from_bytes creates Uint24 from bytes array.
 [[Return to contents]](#Contents)
 
 ## Uint24
-## serialize
+## bytes
 ```v
-fn (v Uint24) serialize() []u8
+fn (v Uint24) bytes() []u8
 ```
 
-serialize serializes underlying Uint24 data to ordinary bytes array.  
+bytes serializes underlying Uint24 data to ordinary bytes array.  
 
 [[Return to contents]](#Contents)
 
