@@ -1,5 +1,5 @@
-# uint24
-Simple Unsigned Integer 24 bit handling for V language
+# u24
+Simple module to handle opaque of data represent 24 bit of unsigned integer in pure V language.
 
 
 ## Contents
@@ -7,7 +7,7 @@ Simple Unsigned Integer 24 bit handling for V language
 - [from_u32](#from_u32)
 - [from_bytes](#from_bytes)
 - [Uint24](#Uint24)
-  - [serialize](#serialize)
+  - [bytes](#bytes)
   - [to_u32](#to_u32)
   - [to_int](#to_int)
 
@@ -16,7 +16,7 @@ Simple Unsigned Integer 24 bit handling for V language
 fn from_int(val int) !Uint24
 ```
 
-from_int creates Uint2 from integer
+from_int creates Uint24 from integer
 
 [[Return to contents]](#Contents)
 
@@ -65,5 +65,3 @@ fn (v Uint24) to_int() !int
 to_int represents Uint24 to integer value, its return error when value bigger than max of int value.  
 
 [[Return to contents]](#Contents)
-
-#### Powered by vdoc. Generated on: 3 Aug 2023 12:17:44
