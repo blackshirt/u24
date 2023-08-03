@@ -10,9 +10,14 @@ pub const (
 // Uint24 represent type of 24 bit opaque
 struct Uint24 {
 mut:
-	b [3]u8
+	b   [3]u8
+	big bool = true
 }
 
+pub fn (mut u Uint24) set_endian(big bool) {
+	u.big = big
+}
+	
 // bytes serializes underlying Uint24 data to ordinary bytes array.
 pub fn (v Uint24) bytes() []u8 {
 	return v.b[..]
@@ -68,20 +73,27 @@ fn (mut v Uint24) set(val u32) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
 		return error('value too bigger than max 24 bit')
 	}
-	v.b[0] = u8((val >> 16) & 0xFF)
-	v.b[1] = u8((val >> 8) & 0xFF)
-	v.b[2] = u8(val & 0xFF)
+	if v.big {
+		v.b[0] = u8((val >> 16) & 0xFF)
+		v.b[1] = u8((val >> 8) & 0xFF)
+		v.b[2] = u8(val & 0xFF)
+	} else {
+		v.b[2] = u8((val >> 16) & 0xFF)
+		v.b[1] = u8((val >> 8) & 0xFF)
+		v.b[0] = u8(val & 0xFF)
+	}
 	return v
 }
 
 // u32_from_bytes creates u32 value from 3 bytes length of data.
 // perform check if result does not exceed allowed limit.
 [direct_array_access; inline]
-fn u32_from_bytes(b []u8) !u32 {
+fn u32_from_bytes(b []u8, big bool) !u32 {
 	if b.len != 3 {
 		return error('need 3 bytes to represent uint2')
 	}
-	val := u32(b[2]) | (u32(b[1]) << u32(8)) | (u32(b[0]) << u32(16))
+	val := if big { u32(b[2]) | (u32(b[1]) << u32(8)) | (u32(b[0]) << u32(16)) } else 
+		{ u32(b[0]) | (u32(b[1]) << u32(8)) | (u32(b[2]) << u32(16)) }
 	// make sure if val does not exceed uint24 limit
 	if val > u24.max_u24 {
 		return error('val returned exceed limit')
