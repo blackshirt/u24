@@ -81,6 +81,7 @@ pub fn from_little_endian_bytes(b []u8) !Uint24 {
 pub fn (v Uint24) to_u32() !u32 {
 	val := if v.big { u32(v.b[2]) | u32(v.b[1]) << u8(8) | u32(v.b[0]) << 16 ) }
 		else {u32(v.b[0]) | u32(v.b[1]) << u8(8) | u32(v.b[2]) << 16 ) }
+	// ensure result does not exceed boundary
 	if val > u24.max_u24 {
 		return error('val Uint24 overflow the limit')
 	}
@@ -90,10 +91,10 @@ pub fn (v Uint24) to_u32() !u32 {
 // to_int represents Uint24 to integer value, its return error when value bigger than max of int value.
 [direct_array_access; inline]
 pub fn (v Uint24) to_int() !int {
+	// to_u32 internally doing check for exceeding limit
+	// so, its not needed to check againts math.max_i32 boundary.
 	val := v.to_u32()!
-	if val > math.max_i32 {
-		return error('val exceed math.max_i32 limit')
-	}
+	// so, just cast it to int
 	return int(val)
 }
 
