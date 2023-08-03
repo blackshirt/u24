@@ -66,14 +66,14 @@ pub fn from_bytes(b []u8) !Uint24 {
 [direct_array_access; inline]	
 pub fn from_big_endian_bytes(b []u8) !Uint24 {
 	val := u32_from_bytes(b, true)!
-	return from_u32(val)
+	return from_big_endian_u32(val)
 }
 
 // from_little_endian_bytes interpretes bytes as little endian
 [direct_array_access; inline]
 pub fn from_little_endian_bytes(b []u8) !Uint24 {
 	val := u32_from_bytes(b, false)!
-	return from_u32(val)
+	return from_little_endian_u32(val)
 }
 		
 // to_u32 represents Uint24 to u32 value
