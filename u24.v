@@ -44,16 +44,32 @@ pub fn from_little_endian_u32(val u32) !Uint24 {
 	return v
 }
 	
-// from_int creates Uint24 from integer
+// from_int is an alias for `from_big_endian_int`. Its creates Uint24 from integer
+// treated as big endian, for other option, see `from_little_endian_int`
 [direct_array_access; inline]
 pub fn from_int(val int) !Uint24 {
+	return from_big_endian_u32(u32(val))!
+}
+		
+// from_big_endian_int creates Uint24 from big endian integer
+[direct_array_access; inline]
+pub fn from_big_endian_int(val int) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
 		panic('value int < 0 or too bigger than max 24 bit')
 	}
-	res := from_u32(u32(val))!
+	res := from_big_endian_u32(u32(val))!
 	return res
 }
 
+// from_little_endian_int creates Uint24 from big endian integer
+[direct_array_access; inline]
+pub fn from_little_endian_int(val int) !Uint24 {
+	if val < 0 || val > u24.max_u24 {
+		panic('value int < 0 or too bigger than max 24 bit')
+	}
+	res := from_little_endian_u32(u32(val))!
+	return res
+}
 // from_bytes creates Uint24 from bytes array.
 // its an alias for `from_big_endian_bytes`, for little endian
 // see `from_little_endian_bytes`
