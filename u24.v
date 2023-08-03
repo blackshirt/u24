@@ -2,7 +2,7 @@ module u24
 
 import math
 
-const (
+pub const (
 	max_u24 = 1 << 24 - 1
 )
 
