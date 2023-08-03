@@ -2,6 +2,7 @@ module u24
 
 import math
 
+// limit value of 24 bit opaque.
 pub const (
 	max_u24 = 1 << 24 - 1
 )
@@ -25,7 +26,7 @@ pub fn from_u32(val u32) !Uint24 {
 	return v
 }
 
-// from_int creates Uint2 from integer
+// from_int creates Uint24 from integer
 [direct_array_access; inline]
 pub fn from_int(val int) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
