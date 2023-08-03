@@ -13,8 +13,8 @@ mut:
 	b [3]u8
 }
 
-// serialize serializes underlying Uint24 data to ordinary bytes array.
-pub fn (v Uint24) serialize() []u8 {
+// bytes serializes underlying Uint24 data to ordinary bytes array.
+pub fn (v Uint24) bytes() []u8 {
 	return v.b[..]
 }
 
