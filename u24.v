@@ -57,7 +57,7 @@ pub fn from_int(val int) !Uint24 {
 [direct_array_access; inline]
 pub fn from_big_endian_int(val int) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
-		panic('value int < 0 or too bigger than max 24 bit')
+		return error('value int < 0 or too bigger than max 24 bit')
 	}
 	res := from_big_endian_u32(u32(val))!
 	return res
@@ -67,7 +67,7 @@ pub fn from_big_endian_int(val int) !Uint24 {
 [direct_array_access; inline]
 pub fn from_little_endian_int(val int) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
-		panic('value int < 0 or too bigger than max 24 bit')
+		return error('value int < 0 or too bigger than max 24 bit')
 	}
 	res := from_little_endian_u32(u32(val))!
 	return res
@@ -102,7 +102,7 @@ pub fn (v Uint24) to_u32() !u32 {
 	if v.big {
 		val = u32(v.b[2]) | u32(v.b[1]) << u8(8) | u32(v.b[0]) << 16
 	} else {
-		val = u32(v.b[2]) << 16 |  u32(v.b[1]) << u8(8) | u32(v.b[0]) 
+		val = u32(v.b[2]) << 16 | u32(v.b[1]) << u8(8) | u32(v.b[0])
 	}
 	// ensure result does not exceed boundary
 	if val > u24.max_u24 {
