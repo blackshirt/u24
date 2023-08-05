@@ -1,5 +1,11 @@
 module u24
 
+// This module provides functionality to handle 24 bit opaque of data.
+// Internally, 24 bit of data represented by fixed bytes array with size 3, ie, [3]u8,
+// represented in Uint24 struct.
+// Its provides you two basic functionality:
+// - the one that construct or create opaque of Uint24 from int, u32 or bytes arrays 
+// - the one that represented back from Uint24 to other value, int, u32 or bytes arrays.
 // limit value of 24 bit opaque.
 pub const (
 	max_u24 = 1 << 24 - 1
