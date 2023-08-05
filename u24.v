@@ -6,6 +6,8 @@ module u24
 // Its provides you two basic functionality:
 // - the one that construct or create opaque of Uint24 from int, u32 or bytes arrays 
 // - the one that represented back from Uint24 to other value, int, u32 or bytes arrays.
+
+	
 // limit value of 24 bit opaque.
 pub const (
 	max_u24 = 1 << 24 - 1
