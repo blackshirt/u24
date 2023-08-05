@@ -22,12 +22,13 @@ pub fn (v Uint24) bytes() []u8 {
 }
 
 // from_u32 creates Uint24 from u32 (in big endian form)
-// its an alias for from_big_endian_u32
+// its an alias for `from_big_endian_u32`
 [direct_array_access; inline]
 pub fn from_u32(val u32) !Uint24 {
 	return from_big_endian_u32(val)!
 }
 
+// from_big_endian_u32 create Uint24 from u32 value in big endian form.
 [direct_array_access; inline]
 pub fn from_big_endian_u32(val u32) !Uint24 {
 	mut v := Uint24{
@@ -37,6 +38,7 @@ pub fn from_big_endian_u32(val u32) !Uint24 {
 	return v
 }
 
+// from_little_endian_u32 create Uint24 from u32 value in little endian form.
 [direct_array_access; inline]
 pub fn from_little_endian_u32(val u32) !Uint24 {
 	mut v := Uint24{
@@ -53,7 +55,7 @@ pub fn from_int(val int) !Uint24 {
 	return from_big_endian_u32(u32(val))!
 }
 
-// from_big_endian_int creates Uint24 from big endian integer
+// from_big_endian_int creates Uint24 from integer value in big endian form.
 [direct_array_access; inline]
 pub fn from_big_endian_int(val int) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
@@ -63,7 +65,7 @@ pub fn from_big_endian_int(val int) !Uint24 {
 	return res
 }
 
-// from_little_endian_int creates Uint24 from big endian integer
+// from_little_endian_int creates Uint24 from integer value in little endian form.
 [direct_array_access; inline]
 pub fn from_little_endian_int(val int) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
