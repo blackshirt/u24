@@ -58,7 +58,7 @@ pub fn from_little_endian_u32(val u32) !Uint24 {
 
 // from_int is an alias for `from_big_endian_int`. Its creates Uint24 from integer
 // treated as big endian, for other option, see `from_little_endian_int`
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_int(val int) !Uint24 {
 	return from_big_endian_u32(u32(val))!
 }
