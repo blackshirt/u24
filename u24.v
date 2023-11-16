@@ -31,13 +31,13 @@ pub fn (v Uint24) bytes() []u8 {
 
 // from_u32 creates Uint24 from u32 (in big endian form)
 // its an alias for `from_big_endian_u32`
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_u32(val u32) !Uint24 {
 	return from_big_endian_u32(val)!
 }
 
 // from_big_endian_u32 create Uint24 from u32 value in big endian form.
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_big_endian_u32(val u32) !Uint24 {
 	mut v := Uint24{
 		big: true
@@ -47,7 +47,7 @@ pub fn from_big_endian_u32(val u32) !Uint24 {
 }
 
 // from_little_endian_u32 create Uint24 from u32 value in little endian form.
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_little_endian_u32(val u32) !Uint24 {
 	mut v := Uint24{
 		big: false
@@ -64,7 +64,7 @@ pub fn from_int(val int) !Uint24 {
 }
 
 // from_big_endian_int creates Uint24 from integer value in big endian form.
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_big_endian_int(val int) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
 		return error('value int < 0 or too bigger than max 24 bit')
@@ -74,7 +74,7 @@ pub fn from_big_endian_int(val int) !Uint24 {
 }
 
 // from_little_endian_int creates Uint24 from integer value in little endian form.
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_little_endian_int(val int) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
 		return error('value int < 0 or too bigger than max 24 bit')
@@ -86,27 +86,27 @@ pub fn from_little_endian_int(val int) !Uint24 {
 // from_bytes creates Uint24 from bytes array.
 // its an alias for `from_big_endian_bytes`, for little endian
 // see `from_little_endian_bytes`
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_bytes(b []u8) !Uint24 {
 	return from_big_endian_bytes(b)!
 }
 
 // from_big_endian_bytes interpretes bytes as big endian.
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_big_endian_bytes(b []u8) !Uint24 {
 	val := u32_from_bytes(b, true)!
 	return from_big_endian_u32(val)
 }
 
 // from_little_endian_bytes interpretes bytes as little endian
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn from_little_endian_bytes(b []u8) !Uint24 {
 	val := u32_from_bytes(b, false)!
 	return from_little_endian_u32(val)
 }
 
 // to_u32 represents Uint24 to u32 value
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn (v Uint24) to_u32() !u32 {
 	mut val := u32(0)
 	if v.big {
@@ -122,7 +122,7 @@ pub fn (v Uint24) to_u32() !u32 {
 }
 
 // to_int represents Uint24 to integer value, its return error when value bigger than max of int value.
-[direct_array_access; inline]
+@[direct_array_access; inline]
 pub fn (v Uint24) to_int() !int {
 	// to_u32 internally doing check for exceeding limit
 	// so, its not needed to check againts math.max_i32 boundary.
@@ -131,7 +131,7 @@ pub fn (v Uint24) to_int() !int {
 	return int(val)
 }
 
-[direct_array_access; inline]
+@[direct_array_access; inline]
 fn (mut v Uint24) set(val u32) !Uint24 {
 	if val < 0 || val > u24.max_u24 {
 		return error('value too bigger than max 24 bit')
@@ -150,7 +150,7 @@ fn (mut v Uint24) set(val u32) !Uint24 {
 
 // u32_from_bytes creates u32 value from 3 bytes length of data.
 // perform check if result does not exceed allowed limit.
-[direct_array_access; inline]
+@[direct_array_access; inline]
 fn u32_from_bytes(b []u8, big bool) !u32 {
 	if b.len != 3 {
 		return error('need 3 bytes to represent uint2')
